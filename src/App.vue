@@ -16,7 +16,7 @@
         </v-list>
         <v-pagination
         v-model="page"
-        :length="6"
+        :length="length"
         @input ="pageChange"
         >
         </v-pagination>
@@ -31,6 +31,7 @@ export default {
   data () {
     return {
       page: 1,
+      length: 0,
       lists: [],
       displayLists: [],
       pageSize: 10,
@@ -45,7 +46,8 @@ export default {
     this.lists= new Array(99).fill().map((v,i)=> {
       return { id : i,title : 'Title' + i};
     });
-    this.displayLists = this.lists.slice(0,this.pageSize);
+    this.length = Math.ceil(this.lists.length/this.pageSize);
+    this.displayLists = this.lists.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
   }
 };
 </script>
